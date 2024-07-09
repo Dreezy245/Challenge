@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Encriptador y desencriptador</title>
+
+</head>
+
+
+
+<body>
+    <div style="text-align: center;">
+        <label>Escriba texto para encriptar</label>
+        <input type="text" style="text-transform:lowercase;" onkeypress="return soloLetras(event)" id="id1" />
+        <!-- <input type="text" style="text-transform:lowercase;" id="id1"> -->
+        <button onclick="Encriptar()"> Encriptar </button>
+        <button id="copiar" onclick="Copiar()"> Copiar </button>
+        <br />
+        <p id="cifrado"></p>
+    </div>
+    </div>
+
+
+    <div style="text-align: center;">
+        <label>Escriba texto para desencriptar</label>
+        <input type="text" style="text-transform:lowercase;" id="id2">
+        <button onclick="Desencriptar()"> Desencriptar </button>
+        <button onclick="Limpiar()"> Limpiar </button>
+        <br />
+        <p id="descifrado"></p>
+    </div>
+
+
+    <script>
+
+        function soloLetras(e) {
+            var key = e.keyCode || e.which,
+                tecla = String.fromCharCode(key).toLowerCase(),
+                letras = " abcdefghijklmnñopqrstuvwxyz",
+                especiales = [],
+                tecla_especial = false;
+
+            for (var i in especiales) {
+                if (key == especiales[i]) {
+                    tecla_especial = true;
+                    break;
+                }
+            }
+
+            if (letras.indexOf(tecla) == -1 && !tecla_especial) {
+                return false;
+            }
+        }
+
+        function Copiar() {
+            let C = document.getElementById("cifrado");
+            let copy = document.getElementById("copiar");
+            navigator.clipboard.writeText(C.textContent);
+            copy.textContent = "Copiar";
+        }
+
+
+
+
+        function Limpiar() {
+            document.getElementById("id1").value = "";
+            document.getElementById("id2").value = "";
+            document.getElementById("cifrado").innerHTML = "";
+            document.getElementById("descifrado").innerHTML = "";
+        }
+
+
+
+
+        function Encriptar() {
+
+            let id1 = document.getElementById("id1").value.toLowerCase();
+            let array = id1.split("");
+
+
+            for (i = 0; i < id1.length; i++) {
+                if (array[i] == "a") {
+                    array[i] = "ai";
+                }
+                if (array[i] == "e") {
+                    array[i] = "enter";
+                }
+                if (array[i] == "i") {
+                    array[i] = "imes";
+                }
+                if (array[i] == "o") {
+                    array[i] = "ober";
+                }
+                if (array[i] == "u") {
+                    array[i] = "ufat";
+                }
+            }
+
+            // console.log(array);
+            let encrip = array.join("");
+            console.log(encrip);
+            document.getElementById("cifrado").innerHTML = encrip;
+        }
+
+
+
+        function Desencriptar() {
+
+            let id2 = document.getElementById("id2").value;
+            let spl = id2.split("");
+
+            for (let i = 0; i < spl.length; i++) {
+                if (spl[i] == "a" && spl[i + 1] == "i") {
+                    spl[i + 1] = "";
+                }
+
+                if (spl[i] == "e" && spl[i + 1] == "n" && spl[i + 2] == "t" && spl[i + 3] == "e" && spl[i + 4] == "r") {
+                    spl[i + 1] = "";
+                    spl[i + 2] = "";
+                    spl[i + 3] = "";
+                    spl[i + 4] = "";
+                }
+
+                if (spl[i] == "i" && spl[i + 1] == "m" && spl[i + 2] == "e" && spl[i + 3] == "s") {
+                    spl[i + 1] = "";
+                    spl[i + 2] = "";
+                    spl[i + 3] = "";
+                }
+
+                if (spl[i] == "o" && spl[i + 1] == "b" && spl[i + 2] == "e" && spl[i + 3] == "r") {
+                    spl[i + 1] = "";
+                    spl[i + 2] = "";
+                    spl[i + 3] = "";
+                }
+
+                if (spl[i] == "u" && spl[i + 1] == "f" && spl[i + 2] == "a" && spl[i + 3] == "t") {
+                    spl[i + 1] = "";
+                    spl[i + 2] = "";
+                    spl[i + 3] = "";
+                }
+            }
+
+            console.log(spl.join(""));
+            let descrp = spl.join("");
+
+            document.getElementById("descifrado").innerHTML = descrp;
+        }
+
+
+
+    </script>
+
+</body>
+
+</html>
